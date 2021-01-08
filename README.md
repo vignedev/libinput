@@ -1,3 +1,11 @@
+# Disclaimer
+
+This fork is... not useful for anyone but me. It is basically a hack to disable a portion of my touch screen that causes random ghost touches. The boundary checking has hard coded values in `libinput.c`. 
+
+```bash
+rm -rf builddir ; meson --prefix=/usr builddir -Dtests=false -Ddocumentation=false && ninja -C builddir && sudo ninja -C builddir install
+```
+
 libinput
 ========
 

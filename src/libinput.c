@@ -2455,6 +2455,12 @@ pointer_notify_axis(struct libinput_device *device,
 			  &axis_event->base);
 }
 
+bool is_point_invalid(const struct device_coords *point){
+	return
+		point->x <= 850 &&
+		point->y >= 64  && point->y <= 980; 
+}
+
 void
 touch_notify_touch_down(struct libinput_device *device,
 			uint64_t time,
@@ -2477,7 +2483,7 @@ touch_notify_touch_down(struct libinput_device *device,
 	};
 
 	post_device_event(device, time,
-			  LIBINPUT_EVENT_TOUCH_DOWN,
+			  is_point_invalid(point) ? LIBINPUT_EVENT_TOUCH_UP : LIBINPUT_EVENT_TOUCH_DOWN,
 			  &touch_event->base);
 }
 
@@ -2503,7 +2509,7 @@ touch_notify_touch_motion(struct libinput_device *device,
 	};
 
 	post_device_event(device, time,
-			  LIBINPUT_EVENT_TOUCH_MOTION,
+			  is_point_invalid(point) ? LIBINPUT_EVENT_TOUCH_UP : LIBINPUT_EVENT_TOUCH_MOTION,
 			  &touch_event->base);
 }
 
